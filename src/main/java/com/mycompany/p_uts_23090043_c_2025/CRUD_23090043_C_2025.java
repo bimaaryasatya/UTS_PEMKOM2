@@ -4,6 +4,7 @@
 
 package com.mycompany.p_uts_23090043_c_2025;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -62,7 +63,7 @@ public class CRUD_23090043_C_2025 {
         // mendapatkan id dari data yang telah ditambahkan
         ObjectId id = new ObjectId(doc.get("_id").toString());
         
-        //melihat data
+        //melihat semua data
         System.out.println("Data di koleksi: ");
         MongoCursor<Document> cursor = col.find().iterator();
         while (cursor.hasNext()) {
@@ -70,22 +71,19 @@ public class CRUD_23090043_C_2025 {
         }
         
         //edit data
-        Document document = new Document();
-        document.put("nama", "Honda BRV");
-        document.put("warna", "abu-abu");
-        document.put("harga", 302000000);
-        Document updated = new Document("$set", document);
-        UpdateResult hasilEdit = col.updateOne(eq("_id",id),updated);
-        System.out.println(hasilEdit.getModifiedCount());
+        Bson filter = Filters.eq("nama", "Honda Brio");
+        Bson update = Updates.set("nama", "Honda WRV");
+            col.updateOne(filter, update);
         
         //menghapus data
 //        col.deleteOne(eq("_id", id));
 
-        //mencari dokumen berdasarkan id 
-        Document Docu = col.find(eq("_id", id)).first();
-        System.out.println("Pencarian data berdasarkan id: "+id);
-        System.out.println(Docu.toJson());
-        
+        //mencari dokumen berdasarkan nama 
+        Bson fil = Filters.eq("nama", "Honda WRV");
+        FindIterable<Document> search = col.find(fil);
+        for (Document docu : search) {
+            System.out.println(docu.toJson());
+                }
     }
     
     
