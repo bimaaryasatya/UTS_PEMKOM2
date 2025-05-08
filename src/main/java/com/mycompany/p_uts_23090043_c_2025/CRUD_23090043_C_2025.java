@@ -69,12 +69,6 @@ public class CRUD_23090043_C_2025 {
         
         //menghapus data
         col.deleteOne(eq("_id", id));
-        //melihat data
-        System.out.println("Data di koleksi: ");
-        cursor = col.find().iterator();
-        while (cursor.hasNext()) {
-            System.out.println(cursor.next().toJson());
-        }
 
         //mencari dokumen berdasarkan id 
         Document Docu = col.find(eq("_id", id)).first();
