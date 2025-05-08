@@ -41,10 +41,22 @@ public class CRUD_23090043_C_2025 {
         System.out.println("Menambahkan Data");
         MongoCollection<Document> col = database.getCollection("coll_23090043_C_2025");
         Document doc = new Document();
-        doc.put("nama", "Honda Brio");
-        doc.put("warna", "putih");
-        doc.put("harga", 180000000);
-        col.insertOne(doc);
+                        doc.put("nama", "Honda Brio");
+                        doc.put("warna", "putih");
+                        doc.put("harga", 180000000);
+                        col.insertOne(doc);
+                        
+        Document doc2 = new Document();
+                        doc2.put("nama", "Honda BRV");
+                        doc2.put("warna", "putih");
+                        doc2.put("harga", 380000000);
+                        col.insertOne(doc2);
+                        
+        Document doc3 = new Document();
+                        doc3.put("nama", "Honda WRV");
+                        doc3.put("warna", "putih");
+                        doc3.put("harga", 190000000);
+                        col.insertOne(doc3);
         System.out.println("Data Tersimpan");
         
         // mendapatkan id dari data yang telah ditambahkan
