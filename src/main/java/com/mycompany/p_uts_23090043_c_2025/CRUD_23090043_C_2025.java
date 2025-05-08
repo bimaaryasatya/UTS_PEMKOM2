@@ -78,7 +78,7 @@ public class CRUD_23090043_C_2025 {
             col.updateOne(filter, update); //update data di collection
         
         //menghapus data
-//        col.deleteOne(eq("_id", id));
+//      Bson del = Filters.eq("nama", "Honda Brio");
 
         //mencari dokumen berdasarkan nama 
         Bson fil = Filters.eq("nama", "Honda WRV"); //mencari data berdasarkan nama
