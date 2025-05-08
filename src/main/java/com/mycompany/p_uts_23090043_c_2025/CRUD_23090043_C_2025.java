@@ -10,9 +10,10 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
-import static com.mongodb.client.model.Filters.eq;
-import com.mongodb.client.result.UpdateResult;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Updates;
 import org.bson.Document;
+import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 
 /**
@@ -20,15 +21,16 @@ import org.bson.types.ObjectId;
  * @author BIMAZZNXT
  */
 public class CRUD_23090043_C_2025 { 
-    
+
+    //membuat fungsi koneksi ke mongoDB
     public static MongoDatabase konekDB() {
         try {
-            MongoClient client = MongoClients.create();
-            MongoDatabase database = client.getDatabase("uts_23090043_C_2025");
-            System.out.println("Koneksi Sukses");
-            return database;
+            MongoClient client = MongoClients.create(); // menghubungkan ke client mongoDB
+            MongoDatabase database = client.getDatabase("uts_23090043_C_2025"); // menghubungkan ke database
+            System.out.println("Koneksi Sukses"); // menampilkan pesan koneksi sukses jika kode di atas telah berhasil ter-compile
+            return database; // kembalikan value database
         } catch (Exception e) {
-            System.out.println("Koneksi Gagal: " + e.getMessage());
+            System.out.println("Koneksi Gagal: " + e.getMessage()); // menampilkan pesan error jika database tidak dapat terhubung
         }
 
         return null;
@@ -40,12 +42,12 @@ public class CRUD_23090043_C_2025 {
         
         // menambah data
         System.out.println("Menambahkan Data");
-        MongoCollection<Document> col = database.getCollection("coll_23090043_C_2025");
-        Document doc = new Document();
-                        doc.put("nama", "Honda Brio");
-                        doc.put("warna", "putih");
-                        doc.put("harga", 180000000);
-                        col.insertOne(doc);
+        MongoCollection<Document> col = database.getCollection("coll_23090043_C_2025"); // menghubungkan ke collection database
+        Document doc = new Document(); // membuat dokumen/data baru dengan variabel doc
+                        doc.put("nama", "Honda Brio"); // membuat dimensi data
+                        doc.put("warna", "putih"); // membuat dimensi data
+                        doc.put("harga", 180000000); // membuat dimensi data
+                        col.insertOne(doc); // memasukan dimensi data (doc) ke dalam collection
                         
         Document doc2 = new Document();
                         doc2.put("nama", "Honda BRV");
@@ -65,24 +67,24 @@ public class CRUD_23090043_C_2025 {
         
         //melihat semua data
         System.out.println("Data di koleksi: ");
-        MongoCursor<Document> cursor = col.find().iterator();
-        while (cursor.hasNext()) {
-            System.out.println(cursor.next().toJson());
+        MongoCursor<Document> cursor = col.find().iterator(); // mencari data di collection 
+        while (cursor.hasNext()) { 
+            System.out.println(cursor.next().toJson()); // menampilkan data dengan iterasi sampai semua data di collection terbaca
         }
         
         //edit data
-        Bson filter = Filters.eq("nama", "Honda Brio");
-        Bson update = Updates.set("nama", "Honda WRV");
-            col.updateOne(filter, update);
+        Bson filter = Filters.eq("nama", "Honda Brio"); // mencari data berdasarkan nama
+        Bson update = Updates.set("nama", "Honda WRV"); // update/set data baru
+            col.updateOne(filter, update); //update data di collection
         
         //menghapus data
 //        col.deleteOne(eq("_id", id));
 
         //mencari dokumen berdasarkan nama 
-        Bson fil = Filters.eq("nama", "Honda WRV");
-        FindIterable<Document> search = col.find(fil);
+        Bson fil = Filters.eq("nama", "Honda WRV"); //mencari data berdasarkan nama
+        FindIterable<Document> search = col.find(fil); //mencari kolom berdasarkan filter sebelumnya
         for (Document docu : search) {
-            System.out.println(docu.toJson());
+            System.out.println(docu.toJson()); // mencari data dengan iterasi
                 }
     }
     
